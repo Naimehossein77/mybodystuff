@@ -1,17 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-
-
-import '../Singletones/app_data.dart';
-import '../constants.dart';
-import 'SharedPreferenceUtils.dart';
 
 String? validateText(String value) {
   if (value.isEmpty) {

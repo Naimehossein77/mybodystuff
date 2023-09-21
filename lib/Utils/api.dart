@@ -2,15 +2,12 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
-import 'package:permission_handler/permission_handler.dart';
 
 import '../Model/apiResponseModel.dart';
 import '../Singletones/app_data.dart';
 import '../constants.dart';
 import 'toastUtils.dart';
-import 'utils.dart';
 
 class CallAPI {
   //make it singleTone class

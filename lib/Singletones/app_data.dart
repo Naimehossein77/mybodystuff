@@ -1,6 +1,4 @@
 
-import 'package:get/state_manager.dart';
-
 
 class AppData {
   //make it singleTone class

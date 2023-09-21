@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 
 
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import '../Utils/routes.dart';
-import '../Utils/toastUtils.dart';
+
 import '../constants.dart';
-import 'app_data.dart';
 
 class Dialogs {
   //make it singleTone class
