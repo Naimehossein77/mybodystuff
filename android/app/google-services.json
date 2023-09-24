@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1017881543670",
+    "project_id": "mybodystuff-37c0f",
+    "storage_bucket": "mybodystuff-37c0f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1017881543670:android:7d257576a14ddd03827dd7",
+        "android_client_info": {
+          "package_name": "com.mybodystuff.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlGRW3uoU7avFw7NILrNC68HHVwS_bm_Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,9 +9,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'Utils/app_pages.dart';
 import 'Utils/routes.dart';
 import 'constants.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: Size(390, 844),
+        designSize: const Size(390, 844),
         minTextAdapt: true,
         splitScreenMode: true,
         builder: ((context, child) {
