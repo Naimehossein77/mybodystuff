@@ -48,14 +48,14 @@ class ProductReviewPage extends GetView<ProductReviewController> {
                       kLog(num.toString());
                       controller.currentPage.value = num;
                     },
-                    children: controller.list
+                    children: controller.modelList
                         .map(
                           (e) => Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset(e),
+                              Image.asset('assets/images/${e.prodId}.png'),
                               Text(
-                                'UNSTOPPABLE 1.0',
+                                e.prodName,
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,
@@ -63,7 +63,7 @@ class ProductReviewPage extends GetView<ProductReviewController> {
                                 ),
                               ),
                               Text(
-                                'NUMBER 07',
+                                e.prodSerialNumber,
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   fontWeight: FontWeight.normal,
