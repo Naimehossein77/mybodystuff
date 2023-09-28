@@ -84,8 +84,8 @@ class HomePage extends GetView<HomePageController> {
                   padding: const EdgeInsets.all(15.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: YoutubePlayer(
-                        controller: controller.youtubePlayerController),
+                    // child: YoutubePlayer(
+                    //     controller: controller.youtubePlayerController),
                   ),
                 ),
                 Container(

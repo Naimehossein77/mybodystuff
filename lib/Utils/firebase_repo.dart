@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:mybodystuff/Model/productModel.dart';
+import 'package:mybodystuff/Utils/utils.dart';
 import 'package:mybodystuff/constants.dart';
 
 class FirebaseRepo {
@@ -26,6 +28,7 @@ class FirebaseRepo {
   final _youtubeVideoCollection =
       FirebaseFirestore.instance.collection('youtube_video');
 
+
   Future<String> getYoutubeVideoLink() async {
     try {
       var res = await _youtubeVideoCollection.get();
@@ -33,6 +36,37 @@ class FirebaseRepo {
     } on FirebaseException catch (e) {
       kLog(e.code);
       return '';
+    }
+  }
+
+  Future<List<ProductModel>> getProductList() async {
+    try {
+      List<ProductModel> list = [];
+      String id = await getDeviceId();
+      var res = await _productCollection.doc(id).get();
+      if (res.exists) {
+        if (res.data()?['productList'] != null) {
+          res.data()!['productList'].forEach((json) {
+            list.add(ProductModel.fromJson(json));
+          });
+        }
+      }
+      return list;
+    } on FirebaseException catch (e) {
+      kLog(e.code);
+      return [];
+    }
+  }
+
+  Future<bool> saveProduct(ProductModel model) async {
+    try {
+      String id = await getDeviceId();
+      model.deviceId = id;
+      _productCollection.doc(id).set(model.toJson());
+      return true;
+    } on FirebaseException catch (e) {
+      kLog(e.code);
+      return false;
     }
   }
 }
