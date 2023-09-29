@@ -13,7 +13,7 @@ class HomePageController extends GetxController {
   }
 
   @override
-  void onInit() async{
+  void onInit() async {
     // TODO: implement onInit
     super.onInit();
 
@@ -22,7 +22,7 @@ class HomePageController extends GetxController {
       initialVideoId: YoutubePlayer.convertUrlToId(Get.arguments ?? '') ?? '',
       flags: const YoutubePlayerFlags(autoPlay: true, mute: false, loop: true),
     );
-
+    await NFCRepo().readNFC();
     kLog((await NFCRepo().isNfcSupported()).toString());
   }
 

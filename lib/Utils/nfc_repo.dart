@@ -1,8 +1,13 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
+import 'package:get/get.dart';
+import 'package:mybodystuff/Model/productModel.dart';
+import 'package:mybodystuff/Utils/firebase_repo.dart';
+import 'package:mybodystuff/Utils/routes.dart';
+import 'package:mybodystuff/Utils/toastUtils.dart';
+import 'package:mybodystuff/Utils/utils.dart';
 import 'package:ndef/ndef.dart';
 
 class NFCRepo {
@@ -26,25 +31,49 @@ class NFCRepo {
   readNFC() async {
     // read NDEF records if available
     // timeout only works on Android, while the latter two messages are only for iOS
-    var tag = await FlutterNfcKit.poll(
-        timeout: const Duration(seconds: 10),
-        iosMultipleTagMessage: "Multiple tags found!",
-        iosAlertMessage: "Scan your tag");
-    if (tag.ndefAvailable!) {
-      /// decoded NDEF records (see [ndef.NDEFRecord] for details)
-      /// `UriRecord: id=(empty) typeNameFormat=TypeNameFormat.nfcWellKnown type=U uri=https://github.com/nfcim/ndef`
-      for (NDEFRecord record
-          in await FlutterNfcKit.readNDEFRecords(cached: false)) {
-        log(record.toString());
-        record.basicInfoString;
+    try {
+      if (!(await isNfcSupported())) {
+        showError(
+            'Either NFC not turned on or this device does not support NFC!');
+        return;
       }
+      var tag = await FlutterNfcKit.poll(
+          timeout: const Duration(seconds: 10),
+          iosMultipleTagMessage: "Multiple tags found!",
+          iosAlertMessage: "Scan your tag");
+      if (tag.ndefAvailable!) {
+        /// decoded NDEF records (see [ndef.NDEFRecord] for details)
+        /// `UriRecord: id=(empty) typeNameFormat=TypeNameFormat.nfcWellKnown type=U uri=https://github.com/nfcim/ndef`
+        for (NDEFRecord record
+            in await FlutterNfcKit.readNDEFRecords(cached: false)) {
+          log(record.toString());
+          String text = String.fromCharCodes(record.payload ?? []);
+          if (text.isNotEmpty) {
+            List<String> prod = text.split(',');
 
-      /// raw NDEF records (data in hex string)
-      /// `{identifier: "", payload: "00010203", type: "0001", typeNameFormat: "nfcWellKnown"}`
-      for (NDEFRawRecord record
-          in await FlutterNfcKit.readNDEFRawRecords(cached: false)) {
-        print(jsonEncode(record).toString());
+            showLoading('Saving Product ${prod[2]}...');
+            await FirebaseRepo().saveProduct(ProductModel(
+                deviceId: await getDeviceId(),
+                prodId: prod[0],
+                prodName: prod[2],
+                prodSerialNumber: prod[1]));
+            hideLoading();
+            Get.offAllNamed(Routes.splashpageRoute, arguments: prod[0]);
+          }
+        }
+
+        /// raw NDEF records (data in hex string)
+        /// `{identifier: "", payload: "00010203", type: "0001", typeNameFormat: "nfcWellKnown"}`
+        for (NDEFRawRecord record
+            in await FlutterNfcKit.readNDEFRawRecords(cached: false)) {
+          log(jsonEncode(record).toString());
+        }
       }
+      FlutterNfcKit.finish();
+    } on Exception catch (e) {
+      log(e.toString());
+      hideLoading();
+      showError(e.toString());
     }
   }
 

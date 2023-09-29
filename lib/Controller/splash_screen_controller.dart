@@ -6,14 +6,18 @@ import 'package:http/http.dart';
 import 'package:mybodystuff/Utils/firebase_repo.dart';
 import 'package:mybodystuff/Utils/nfc_repo.dart';
 import 'package:mybodystuff/Utils/routes.dart';
+import 'package:mybodystuff/Utils/utils.dart';
 import 'package:mybodystuff/constants.dart';
 import 'package:video_player/video_player.dart';
 
 class SplashScreenController extends GetxController {
   RxInt reload = 0.obs;
   VideoPlayerController? videoPlayerController;
+  String prodId = '1';
   @override
   void onInit() async {
+    if (Get.arguments != null) prodId = Get.arguments;
+    log('DeviceId: ' + (await getDeviceId()).toString());
     String youtubeVideoUrl = await FirebaseRepo().getYoutubeVideoLink();
     // await NFCRepo().readNFC();
     await _initializeVideoPlayer();
@@ -24,8 +28,7 @@ class SplashScreenController extends GetxController {
   }
 
   Future<void> _initializeVideoPlayer() async {
-
-    videoPlayerController = VideoPlayerController.asset('assets/videos/1.mp4');
+    videoPlayerController = VideoPlayerController.asset('assets/videos/$prodId.mp4');
     await videoPlayerController!.initialize();
     reload++;
     videoPlayerController!.play();

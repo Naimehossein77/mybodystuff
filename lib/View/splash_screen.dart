@@ -25,7 +25,10 @@ class SplashScreen extends GetView<SplashScreenController> {
               children: [
                 Padding(
                   padding: EdgeInsets.all(20.h),
-                  child: Image.asset('assets/images/Brand.png'),
+                  child: Image.asset(
+                    'assets/images/Brand.png',
+                    width: 200.w,
+                  ),
                 ),
                 // height(15.h),
                 // Image.asset('assets/images/1.png')
@@ -40,10 +43,11 @@ class SplashScreen extends GetView<SplashScreenController> {
                       padding: EdgeInsets.all(controller.reload.value * 0),
                       child: controller.videoPlayerController != null
                           ? AspectRatio(
-                              aspectRatio: controller
-                                  .videoPlayerController!.value.aspectRatio,
-                              child:
-                                  VideoPlayer(controller.videoPlayerController!),
+                              aspectRatio: controller.videoPlayerController!
+                                      .value.aspectRatio *
+                                  1.1,
+                              child: VideoPlayer(
+                                  controller.videoPlayerController!),
                             )
                           : Container(),
                     ),
@@ -97,7 +101,7 @@ class SplashScreen extends GetView<SplashScreenController> {
                       delay: const Duration(seconds: 1),
                       duration: const Duration(seconds: 1),
                       color: Colors.black,
-                    )
+                    ),
               ],
             )),
       ),
