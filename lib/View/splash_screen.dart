@@ -4,10 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mybodystuff/Controller/splash_screen_controller.dart';
-import 'package:mybodystuff/constants.dart';
 import 'package:video_player/video_player.dart';
-
-import '../Utils/toastUtils.dart';
 
 class SplashScreen extends GetView<SplashScreenController> {
   const SplashScreen({super.key});
