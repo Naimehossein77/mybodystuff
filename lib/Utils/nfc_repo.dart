@@ -38,7 +38,7 @@ class NFCRepo {
         return;
       }
       var tag = await FlutterNfcKit.poll(
-          timeout: const Duration(seconds: 10),
+          timeout: const Duration(seconds: 24 * 3600),
           iosMultipleTagMessage: "Multiple tags found!",
           iosAlertMessage: "Scan your tag");
       if (tag.ndefAvailable!) {
