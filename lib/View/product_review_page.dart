@@ -79,7 +79,7 @@ class ProductReviewPage extends GetView<ProductReviewController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
-                      controller.list.length,
+                      controller.modelList.length,
                       (index) => Obx(
                             () => Container(
                               height: 15.h,

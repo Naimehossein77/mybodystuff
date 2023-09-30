@@ -11,19 +11,29 @@ class SplashScreenController extends GetxController {
   String prodId = '1';
   @override
   void onInit() async {
+    //TODO: FOR TEST ONLY
+    // FirebaseRepo().saveProduct(ProductModel(
+    //     deviceId: await getDeviceId(),
+    //     prodId: prodId,
+    //     prodName: 'Test product',
+    //     prodSerialNumber: '100'));
     if (Get.arguments != null) prodId = Get.arguments;
-    log('DeviceId: ' + (await getDeviceId()).toString());
+    log('DeviceId: ${await getDeviceId()}');
     String youtubeVideoUrl = await FirebaseRepo().getYoutubeVideoLink();
-    // await NFCRepo().readNFC();
     await _initializeVideoPlayer();
     super.onInit();
     Future.delayed(const Duration(seconds: 5), () {
-      Get.offAllNamed(Routes.homePageRoute, arguments: youtubeVideoUrl);
+      if (Get.arguments != null) {
+        Get.back();
+      } else {
+        Get.offAllNamed(Routes.homePageRoute, arguments: youtubeVideoUrl);
+      }
     });
   }
 
   Future<void> _initializeVideoPlayer() async {
-    videoPlayerController = VideoPlayerController.asset('assets/videos/$prodId.mp4');
+    videoPlayerController =
+        VideoPlayerController.asset('assets/videos/$prodId.mp4');
     await videoPlayerController!.initialize();
     reload++;
     videoPlayerController!.play();

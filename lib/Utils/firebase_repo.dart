@@ -1,11 +1,11 @@
 import 'dart:async';
 
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:mybodystuff/Model/productModel.dart';
+import 'package:mybodystuff/Singletones/app_data.dart';
 import 'package:mybodystuff/Utils/utils.dart';
 import 'package:mybodystuff/constants.dart';
 
@@ -24,10 +24,11 @@ class FirebaseRepo {
   final _youtubeVideoCollection =
       FirebaseFirestore.instance.collection('youtube_video');
 
-
   Future<String> getYoutubeVideoLink() async {
     try {
       var res = await _youtubeVideoCollection.get();
+      appData.title = res.docs.first.data()['title'];
+      appData.body = res.docs.first.data()['body'];
       return res.docs.first.data()['url'] ?? '';
     } on FirebaseException catch (e) {
       kLog(e.code);
@@ -58,7 +59,15 @@ class FirebaseRepo {
     try {
       String id = await getDeviceId();
       model.deviceId = id;
-      _productCollection.doc(id).set(model.toJson());
+      Map<String, dynamic> paylaod = {
+        'productList': FieldValue.arrayUnion([model.toJson()]),
+      };
+      var res = await _productCollection.doc(id).get();
+      if (res.exists) {
+        await _productCollection.doc(id).update(paylaod);
+      } else {
+        await _productCollection.doc(id).set(paylaod);
+      }
       return true;
     } on FirebaseException catch (e) {
       kLog(e.code);

@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'Utils/app_pages.dart';
 import 'Utils/routes.dart';
 import 'constants.dart';
+// ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {

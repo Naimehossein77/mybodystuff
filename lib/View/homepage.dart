@@ -3,9 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:mybodystuff/Controller/homepage_controller.dart';
+import 'package:mybodystuff/Singletones/app_data.dart';
 import 'package:mybodystuff/Utils/toastUtils.dart';
 import 'package:mybodystuff/constants.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+import '../Utils/routes.dart';
 
 class HomePage extends GetView<HomePageController> {
   const HomePage({super.key});
@@ -92,7 +95,7 @@ class HomePage extends GetView<HomePageController> {
                   padding: const EdgeInsets.only(left: 15.0, top: 8.0),
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'UNSTOPPABLE 1.0',
+                    appData.title,
                     style: kPoppinsTextStyle.copyWith(
                         fontWeight: FontWeight.bold, fontSize: 18),
                   ),
@@ -101,7 +104,7 @@ class HomePage extends GetView<HomePageController> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                   child: Text(
-                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+                    appData.body,
                     textAlign: TextAlign.justify,
                     style: kPoppinsTextStyle.copyWith(
                       fontSize: 15.sp,

@@ -8,13 +8,6 @@ class ProductReviewController extends GetxController {
   late PageController pageController = PageController();
   RxInt currentPage = 0.obs;
   RxList<ProductModel> modelList = RxList();
-  List<String> list = [
-    'assets/images/1.png',
-    'assets/images/1.png',
-    'assets/images/1.png',
-    'assets/images/1.png',
-    'assets/images/1.png',
-  ];
   @override
   void onInit() {
     super.onInit();
