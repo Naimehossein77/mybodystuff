@@ -103,4 +103,8 @@ class NFCRepo {
       showError(e.toString());
     }
   }
+
+  stopSession() async {
+    await NfcManager.instance.stopSession();
+  }
 }

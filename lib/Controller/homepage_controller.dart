@@ -31,5 +31,6 @@ class HomePageController extends GetxController {
     // TODO: implement onClose
     super.onClose();
     youtubePlayerController.dispose();
+    NFCRepo().stopSession();
   }
 }
