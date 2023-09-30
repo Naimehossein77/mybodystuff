@@ -93,7 +93,7 @@ class NFCRepo {
                 prodName: prod[2],
                 prodSerialNumber: prod[1]));
             hideLoading();
-            Get.toNamed(Routes.splashpageRoute, arguments: prod[0]);
+            Get.toNamed(Routes.splashpageRoute, arguments: prod);
           }
         }
       });

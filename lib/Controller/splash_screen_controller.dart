@@ -8,20 +8,20 @@ import 'package:video_player/video_player.dart';
 class SplashScreenController extends GetxController {
   RxInt reload = 0.obs;
   VideoPlayerController? videoPlayerController;
-  String prodId = '1';
+  RxString prodId = '1'.obs;
+  RxString prodName = 'UNSTOPPABLE 1.0'.obs;
+  RxString prodSerialNumber = '07'.obs;
   @override
   void onInit() async {
-    //TODO: FOR TEST ONLY
-    // FirebaseRepo().saveProduct(ProductModel(
-    //     deviceId: await getDeviceId(),
-    //     prodId: prodId,
-    //     prodName: 'Test product',
-    //     prodSerialNumber: '100'));
-    if (Get.arguments != null) prodId = Get.arguments;
+    _assignArgumentValue();
     log('DeviceId: ${await getDeviceId()}');
     String youtubeVideoUrl = await FirebaseRepo().getYoutubeVideoLink();
     await _initializeVideoPlayer();
     super.onInit();
+    _delay(youtubeVideoUrl);
+  }
+
+  _delay(String youtubeVideoUrl) {
     Future.delayed(const Duration(seconds: 5), () {
       if (Get.arguments != null) {
         Get.back();
@@ -29,6 +29,14 @@ class SplashScreenController extends GetxController {
         Get.offAllNamed(Routes.homePageRoute, arguments: youtubeVideoUrl);
       }
     });
+  }
+
+  _assignArgumentValue() {
+    if (Get.arguments != null) {
+      prodId.value = Get.arguments[0];
+      prodName.value = Get.arguments[2];
+      prodSerialNumber.value = Get.arguments[1];
+    }
   }
 
   Future<void> _initializeVideoPlayer() async {

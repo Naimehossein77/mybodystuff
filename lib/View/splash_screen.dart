@@ -52,7 +52,7 @@ class SplashScreen extends GetView<SplashScreenController> {
                 ),
                 // height(15.h),
                 Text(
-                  'UNSTOPPABLE 1.0',
+                  controller.prodName.value,
                   style: GoogleFonts.poppins(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
@@ -77,7 +77,7 @@ class SplashScreen extends GetView<SplashScreenController> {
                 // slideX(duration: const Duration(seconds: 3)),
                 ,
                 Text(
-                  'NUMBER. 07',
+                  'NUMBER. ${controller.prodSerialNumber.value}',
                   style: GoogleFonts.poppins(
                     color: Colors.white,
                     fontWeight: FontWeight.normal,
