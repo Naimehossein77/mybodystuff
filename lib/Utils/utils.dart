@@ -1,8 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 String? validateText(String value) {
   if (value.isEmpty) {
@@ -40,13 +39,20 @@ Future<Map<String, dynamic>> loadJsonFromAsset(String path) async {
 
 Future<String> getDeviceId() async {
   var deviceInfo = DeviceInfoPlugin();
-  if (Platform.isIOS) {
-    // import 'dart:io'
-    var iosDeviceInfo = await deviceInfo.iosInfo;
-    return iosDeviceInfo.identifierForVendor ?? ''; // unique ID on iOS
-  } else if (Platform.isAndroid) {
-    var androidDeviceInfo = await deviceInfo.androidInfo;
-    return androidDeviceInfo.id; // unique ID on Android
+  // if (Platform.isIOS) {
+  //   // import 'dart:io'
+  //   var iosDeviceInfo = await deviceInfo.iosInfo;
+  //   return iosDeviceInfo.identifierForVendor ?? ''; // unique ID on iOS
+  // } else if (Platform.isAndroid) {
+  //   var androidDeviceInfo = await deviceInfo.androidInfo;
+  //   return androidDeviceInfo.id; // unique ID on Android
+  // } else 
+  if
+  (kIsWeb){
+    WebBrowserInfo webInfo = await deviceInfo.webBrowserInfo;
+
+    return  webInfo.vendor! + webInfo.userAgent! + webInfo.hardwareConcurrency.toString();
+ 
   }
   return '';
 }

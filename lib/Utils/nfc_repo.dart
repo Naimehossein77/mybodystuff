@@ -30,47 +30,8 @@ class NFCRepo {
 
   //READ NFC
   readNFC() async {
-    // read NDEF records if available
-    // timeout only works on Android, while the latter two messages are only for iOS
     try {
-      // if (!(await isNfcSupported())) {
-      //   showError(
-      //       'Either NFC not turned on or this device does not support NFC!');
-      //   return;
-      // }
-      // var tag = await FlutterNfcKit.poll(
-      //     timeout: const Duration(seconds: 24 * 3600),
-      //     iosMultipleTagMessage: "Multiple tags found!",
-      //     iosAlertMessage: "Scan your tag");
-      // if (tag.ndefAvailable!) {
-      //   /// decoded NDEF records (see [ndef.NDEFRecord] for details)
-      //   /// `UriRecord: id=(empty) typeNameFormat=TypeNameFormat.nfcWellKnown type=U uri=https://github.com/nfcim/ndef`
-      //   for (NDEFRecord record
-      //       in await FlutterNfcKit.readNDEFRecords(cached: false)) {
-      //     log(record.toString());
-      //     String text = String.fromCharCodes(record.payload ?? []);
-      //     if (text.isNotEmpty) {
-      //       List<String> prod = text.split(',');
 
-      //       showLoading('Saving Product ${prod[2]}...');
-      //       await FirebaseRepo().saveProduct(ProductModel(
-      //           deviceId: await getDeviceId(),
-      //           prodId: prod[0].replaceAll('en', ''),
-      //           prodName: prod[2],
-      //           prodSerialNumber: prod[1]));
-      //       hideLoading();
-      //       Get.offAllNamed(Routes.splashpageRoute, arguments: prod[0]);
-      //     }
-      //   }
-
-      //   /// raw NDEF records (data in hex string)
-      //   /// `{identifier: "", payload: "00010203", type: "0001", typeNameFormat: "nfcWellKnown"}`
-      //   for (NDEFRawRecord record
-      //       in await FlutterNfcKit.readNDEFRawRecords(cached: false)) {
-      //     log(jsonEncode(record).toString());
-      //   }
-      // }
-      // FlutterNfcKit.finish();
       NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
         if (!(await isNfcSupported())) return;
         // Do something with an NfcTag instance.

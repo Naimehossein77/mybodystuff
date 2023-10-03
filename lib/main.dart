@@ -14,7 +14,17 @@ import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    // name: 'mybodystuff',
+    options: const FirebaseOptions(
+        apiKey: "AIzaSyBu4et-Go5zNOq6_TktMk0FX7DE-xjYElQ",
+        authDomain: "mybodystuff-37c0f.firebaseapp.com",
+        projectId: "mybodystuff-37c0f",
+        storageBucket: "mybodystuff-37c0f.appspot.com",
+        messagingSenderId: "1017881543670",
+        appId: "1:1017881543670:web:8c19e08836a202e5827dd7",
+        measurementId: "G-X7SW21TFEQ"),
+  );
   runApp(const MyApp());
 }
 

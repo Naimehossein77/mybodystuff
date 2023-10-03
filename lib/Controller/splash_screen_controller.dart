@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mybodystuff/Utils/firebase_repo.dart';
 import 'package:mybodystuff/Utils/routes.dart';
 import 'package:mybodystuff/Utils/utils.dart';
+import 'package:mybodystuff/constants.dart';
 import 'package:video_player/video_player.dart';
 
 class SplashScreenController extends GetxController {
@@ -13,9 +14,11 @@ class SplashScreenController extends GetxController {
   RxString prodSerialNumber = '07'.obs;
   @override
   void onInit() async {
+    kLog(Get.arguments.toString());
     _assignArgumentValue();
     log('DeviceId: ${await getDeviceId()}');
     String youtubeVideoUrl = await FirebaseRepo().getYoutubeVideoLink();
+    kLog('youtubeLink: $youtubeVideoUrl');
     await _initializeVideoPlayer();
     super.onInit();
     _delay(youtubeVideoUrl);
@@ -45,6 +48,7 @@ class SplashScreenController extends GetxController {
     await videoPlayerController!.initialize();
     reload++;
     videoPlayerController!.play();
+    // videoPlayerController!.setVolume(0);
   }
 
   @override

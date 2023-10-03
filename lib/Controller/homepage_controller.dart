@@ -22,8 +22,8 @@ class HomePageController extends GetxController {
       initialVideoId: YoutubePlayer.convertUrlToId(Get.arguments ?? '') ?? '',
       flags: const YoutubePlayerFlags(autoPlay: true, mute: false, loop: true),
     );
-    await NFCRepo().readNFC();
-    kLog((await NFCRepo().isNfcSupported()).toString());
+    // await NFCRepo().readNFC();
+    // kLog((await NFCRepo().isNfcSupported()).toString());
   }
 
   @override
@@ -31,6 +31,6 @@ class HomePageController extends GetxController {
     // TODO: implement onClose
     super.onClose();
     youtubePlayerController.dispose();
-    NFCRepo().stopSession();
+    // NFCRep`o().stopSession();
   }
 }
