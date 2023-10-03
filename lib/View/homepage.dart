@@ -6,7 +6,7 @@ import 'package:mybodystuff/Controller/homepage_controller.dart';
 import 'package:mybodystuff/Singletones/app_data.dart';
 import 'package:mybodystuff/Utils/toastUtils.dart';
 import 'package:mybodystuff/constants.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 import '../Utils/routes.dart';
 

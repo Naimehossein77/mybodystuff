@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mybodystuff/Controller/splash_screen_controller.dart';
 import 'package:video_player/video_player.dart';
 
+
 class SplashScreen extends GetView<SplashScreenController> {
   const SplashScreen({super.key});
 

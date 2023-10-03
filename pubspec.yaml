@@ -44,12 +44,13 @@ dependencies:
   flutter_screenutil: ^5.6.1
   flutter_easyloading: ^3.0.5
   intl: ^0.18.1
-  youtube_player_flutter: ^8.1.2
+  # youtube_player_flutter: ^8.1.2
   flutter_animate: ^4.2.0+1
   carousel_slider: ^4.2.1
   cloud_firestore: ^4.8.5
   firebase_storage: ^11.2.6
   video_player: ^2.7.2
+  youtube_player_iframe: ^4.0.4
   device_info_plus: ^9.0.3
   nfc_manager: ^3.3.0
 
