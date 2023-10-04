@@ -3,9 +3,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mybodystuff/Controller/splash_screen_controller.dart';
 import 'package:video_player/video_player.dart';
-
 
 class SplashScreen extends GetView<SplashScreenController> {
   const SplashScreen({super.key});
@@ -35,20 +35,11 @@ class SplashScreen extends GetView<SplashScreenController> {
                 //     .fadeIn(duration: const Duration(seconds: 1))
                 //     .shake(delay: const Duration(seconds: 1)),
                 Expanded(
-                  child: Obx(
-                    () => Container(
-                      // height: 600.h,
-                      padding: EdgeInsets.all(controller.reload.value * 0),
-                      child: controller.videoPlayerController != null
-                          ? AspectRatio(
-                              aspectRatio: controller.videoPlayerController!
-                                      .value.aspectRatio *
-                                  1.1,
-                              child: VideoPlayer(
-                                  controller.videoPlayerController!),
-                            )
-                          : Container(),
-                    ),
+                  child: AspectRatio(
+                    aspectRatio: 1.1,
+                    child: Lottie.asset(
+                        "assets/lottie/${controller.prodId}.json",
+                        frameRate: FrameRate(15)),
                   ),
                 ),
                 // height(15.h),

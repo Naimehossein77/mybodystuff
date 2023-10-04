@@ -76,6 +76,46 @@ class HomePage extends GetView<HomePageController> {
                   ),
                 ),
               ),
+              height(10.h),
+              InkWell(
+                onTap: () {
+                  controller.logout();
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(colors: [
+                        Colors.white.withOpacity(.01),
+                        Colors.white.withOpacity(.1),
+                        Colors.white.withOpacity(.01),
+                      ], stops: const [
+                        .1,
+                        .6,
+                        1
+                      ]),
+                      color: Colors.white),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.list_alt,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        width(15.w),
+                        Text(
+                          'Logout',
+                          style: kPoppinsTextStyle.copyWith(
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ]),
           ),
         ),
@@ -87,28 +127,39 @@ class HomePage extends GetView<HomePageController> {
                   padding: const EdgeInsets.all(15.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: YoutubePlayer(
-                        controller: controller.youtubePlayerController),
+                    child: Obx(
+                      () => Padding(
+                        padding: EdgeInsets.all(controller.reload.value * 0.0),
+                        child: controller.youtubePlayerController != null
+                            ? YoutubePlayer(
+                                controller: controller.youtubePlayerController!)
+                            : Container(),
+                      ),
+                    ),
                   ),
                 ),
                 Container(
                   padding: const EdgeInsets.only(left: 15.0, top: 8.0),
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    appData.title,
-                    style: kPoppinsTextStyle.copyWith(
-                        fontWeight: FontWeight.bold, fontSize: 18),
+                  child: Obx(
+                    () => Text(
+                      appData.title.value,
+                      style: kPoppinsTextStyle.copyWith(
+                          fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
                   ),
                 ),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                  child: Text(
-                    appData.body,
-                    textAlign: TextAlign.justify,
-                    style: kPoppinsTextStyle.copyWith(
-                      fontSize: 15.sp,
-                      color: Colors.white,
+                  child: Obx(
+                    () => Text(
+                      appData.body.value,
+                      textAlign: TextAlign.justify,
+                      style: kPoppinsTextStyle.copyWith(
+                        fontSize: 15.sp,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 )

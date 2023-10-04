@@ -6,11 +6,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mybodystuff/Singletones/app_data.dart';
+import 'package:mybodystuff/Utils/firebase_repo.dart';
 import 'Utils/app_pages.dart';
 import 'Utils/routes.dart';
 import 'constants.dart';
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
+
+import 'dart:html' as html;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +29,10 @@ Future<void> main() async {
         appId: "1:1017881543670:web:8c19e08836a202e5827dd7",
         measurementId: "G-X7SW21TFEQ"),
   );
+  String url = html.window.location.href;
+  Map<String, String> queryParams = Uri.parse(url).queryParameters;
+  appData.getProdFromParamToAppData(queryParams);
+  kLog(queryParams.toString());
   runApp(const MyApp());
 }
 

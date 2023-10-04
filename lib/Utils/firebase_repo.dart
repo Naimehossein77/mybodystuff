@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:mybodystuff/Model/productModel.dart';
 import 'package:mybodystuff/Singletones/app_data.dart';
+import 'package:mybodystuff/Utils/toastUtils.dart';
 import 'package:mybodystuff/Utils/utils.dart';
 import 'package:mybodystuff/constants.dart';
 
@@ -24,11 +26,14 @@ class FirebaseRepo {
   final _youtubeVideoCollection =
       FirebaseFirestore.instance.collection('youtube_video');
 
+  FirebaseAuth auth = FirebaseAuth.instance;
+  UserCredential? user;
+
   Future<String> getYoutubeVideoLink() async {
     try {
       var res = await _youtubeVideoCollection.get();
-      appData.title = res.docs.first.data()['title'];
-      appData.body = res.docs.first.data()['body'];
+      appData.title.value = res.docs.first.data()['title'];
+      appData.body.value = res.docs.first.data()['body'];
       return res.docs.first.data()['url'] ?? '';
     } on FirebaseException catch (e) {
       kLog(e.code);
@@ -39,7 +44,7 @@ class FirebaseRepo {
   Future<List<ProductModel>> getProductList() async {
     try {
       List<ProductModel> list = [];
-      String id = await getDeviceId();
+      String id = FirebaseAuth.instance.currentUser?.uid ?? '';
       var res = await _productCollection.doc(id).get();
       if (res.exists) {
         if (res.data()?['productList'] != null) {
@@ -57,7 +62,8 @@ class FirebaseRepo {
 
   Future<bool> saveProduct(ProductModel model) async {
     try {
-      String id = await getDeviceId();
+      String id = FirebaseAuth.instance.currentUser?.uid ?? '';
+      if (id.isEmpty) return false;
       model.deviceId = id;
       Map<String, dynamic> paylaod = {
         'productList': FieldValue.arrayUnion([model.toJson()]),
@@ -73,5 +79,34 @@ class FirebaseRepo {
       kLog(e.code);
       return false;
     }
+  }
+
+  Future<bool> login(String email, String password) async {
+    try {
+      UserCredential user = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      this.user = user;
+      return true;
+    } on FirebaseException catch (e) {
+      kLog(e.code);
+      return false;
+    }
+  }
+
+  Future<bool> signup(String email, String password) async {
+    try {
+      UserCredential user = await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      this.user = user;
+      return true;
+    } on FirebaseException catch (e) {
+      kLog(e.code);
+      showError(e.message!);
+      return false;
+    }
+  }
+
+  logout() async {
+    await auth.signOut();
   }
 }

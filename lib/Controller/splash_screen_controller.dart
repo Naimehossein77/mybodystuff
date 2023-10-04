@@ -1,9 +1,9 @@
 import 'dart:developer';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mybodystuff/Utils/firebase_repo.dart';
 import 'package:mybodystuff/Utils/routes.dart';
-import 'package:mybodystuff/Utils/utils.dart';
-import 'package:mybodystuff/constants.dart';
+
 import 'package:video_player/video_player.dart';
 
 class SplashScreenController extends GetxController {
@@ -12,22 +12,22 @@ class SplashScreenController extends GetxController {
   RxString prodId = '1'.obs;
   RxString prodName = 'UNSTOPPABLE 1.0'.obs;
   RxString prodSerialNumber = '07'.obs;
+
   @override
   void onInit() async {
-    kLog(Get.arguments.toString());
     _assignArgumentValue();
-    log('DeviceId: ${await getDeviceId()}');
-    String youtubeVideoUrl = await FirebaseRepo().getYoutubeVideoLink();
-    kLog('youtubeLink: $youtubeVideoUrl');
+    // log('DeviceId: ${await getDeviceId()}');
+    // String youtubeVideoUrl = await FirebaseRepo().getYoutubeVideoLink();
+    // kLog('youtubeLink: $youtubeVideoUrl');
     await _initializeVideoPlayer();
     super.onInit();
-    _delay(youtubeVideoUrl);
+    _delay('');
   }
 
   _delay(String youtubeVideoUrl) {
-    Future.delayed(const Duration(seconds: 5), () {
-      if (Get.arguments != null) {
-        Get.back();
+    Future.delayed(const Duration(seconds: 6), () {
+      if (FirebaseRepo().auth.currentUser == null) {
+        Get.toNamed(Routes.loginpageRoute);
       } else {
         Get.offAllNamed(Routes.homePageRoute, arguments: youtubeVideoUrl);
       }
@@ -43,12 +43,16 @@ class SplashScreenController extends GetxController {
   }
 
   Future<void> _initializeVideoPlayer() async {
-    videoPlayerController =
-        VideoPlayerController.asset('assets/videos/$prodId.mp4');
-    await videoPlayerController!.initialize();
-    reload++;
-    videoPlayerController!.play();
+    // videoPlayerController =
+    //     VideoPlayerController.asset('assets/videos/$prodId.mp4');
+    // await videoPlayerController!.initialize();
+    // reload++;
+    // videoPlayerController!.play();
     // videoPlayerController!.setVolume(0);
+
+    // composition = NetworkLottie(
+    //         )
+    //     .load();
   }
 
   @override
