@@ -76,30 +76,32 @@ class HomePage extends GetView<HomePageController> {
                   ),
                 ),
               ),
-              height(10.h),
+              height(20.h),
+              Spacer(),
               InkWell(
                 onTap: () {
                   controller.logout();
                 },
                 child: Container(
+                  width: double.infinity,
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [
-                        Colors.white.withOpacity(.01),
-                        Colors.white.withOpacity(.1),
-                        Colors.white.withOpacity(.01),
-                      ], stops: const [
-                        .1,
-                        .6,
-                        1
-                      ]),
-                      color: Colors.white),
+                    gradient: LinearGradient(colors: [
+                      Colors.white.withOpacity(.01),
+                      Colors.white.withOpacity(.1),
+                      Colors.white.withOpacity(.01),
+                    ], stops: const [
+                      .1,
+                      .6,
+                      1
+                    ]),
+                  ),
                   child: Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
                     child: Row(
                       children: [
                         const Icon(
-                          Icons.list_alt,
+                          Icons.logout,
                           color: Colors.white,
                           size: 30,
                         ),

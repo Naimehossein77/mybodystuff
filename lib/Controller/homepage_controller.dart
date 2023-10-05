@@ -57,6 +57,7 @@ class HomePageController extends GetxController {
 
   _saveProductFromNFCToFirebase() async {
     if (appData.id.isEmpty || appData.serial.isEmpty || appData.name.isEmpty) {
+      kLog('value empty');
       return;
     }
     var res = await FirebaseRepo().saveProduct(ProductModel(
@@ -65,12 +66,14 @@ class HomePageController extends GetxController {
         prodName: appData.name,
         prodSerialNumber: appData.serial));
     if (res) {
+      kLog('saved product success');
       appData.id = appData.serial = appData.name = '';
     }
   }
 
   logout() async {
     await FirebaseRepo().logout();
+    kLog('logout');
     Get.toNamed(Routes.loginpageRoute);
   }
 }

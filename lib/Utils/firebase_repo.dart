@@ -89,6 +89,7 @@ class FirebaseRepo {
       return true;
     } on FirebaseException catch (e) {
       kLog(e.code);
+      showError(e.code);
       return false;
     }
   }
@@ -98,6 +99,7 @@ class FirebaseRepo {
       UserCredential user = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       this.user = user;
+      showSuccess('Account created successfully!');
       return true;
     } on FirebaseException catch (e) {
       kLog(e.code);

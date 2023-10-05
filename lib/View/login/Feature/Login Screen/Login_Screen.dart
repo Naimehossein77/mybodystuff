@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mybodystuff/Utils/firebase_repo.dart';
+import 'package:mybodystuff/Utils/toastUtils.dart';
 import 'package:mybodystuff/constants.dart';
 
 import '../../../../Utils/routes.dart';
@@ -64,8 +65,16 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Center(
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                Padding(
+                  padding: EdgeInsets.all(20.h),
+                  child: Image.asset(
+                    'assets/images/Brand.png',
+                    width: 200.w,
+                  ),
+                ),
+                height(60),
                 Card(
                   elevation: 5,
                   color:
@@ -262,7 +271,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-
+                height(60),
                 //End of Center Card
                 //Start of outer card
                 const SizedBox(

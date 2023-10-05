@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: ((context, child) {
           return GetMaterialApp(
-            title: 'GOEC',
+            title: 'MyBodyStuff',
             debugShowCheckedModeBanner: false,
             builder: EasyLoading.init(),
             theme: ThemeData(
